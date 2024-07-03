@@ -1,9 +1,9 @@
 import React from "react";
-import Main from "./components/main";
+import Accordion from "./components/Accordion";
 function App() {
   return (
     <React.Fragment>
-      <Main />
+      <Accordion />
     </React.Fragment>
   );
 }
