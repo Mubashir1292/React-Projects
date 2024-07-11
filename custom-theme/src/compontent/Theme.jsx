@@ -1,13 +1,20 @@
 import React from "react";
-
+import useLocalStorage from "./Hooks/UselocalStorage";
+import "./theme.css";
 function Theme() {
+  const [theme, setTheme] = useLocalStorage("theme", "dark");
+
+  const handleToggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
   return (
     <React.Fragment>
-      <div className="flex flex-col justify-center items-center py-32 space-y-3">
+      <div
+        className={`flex flex-col justify-center items-center py-32 space-y-3 h-screen light-dark-mode`}
+        data-theme={theme}
+      >
         <p>Hello World</p>
-        <button className="bg-green-600 text-white text-center text-xl p-4 rounded-md w-52 hover:bg-green-500">
-          Change Theme
-        </button>
+        <button onClick={handleToggleTheme}>Change Theme</button>
       </div>
     </React.Fragment>
   );

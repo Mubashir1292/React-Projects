@@ -1,0 +1,37 @@
+:root {
+  --background: "#fff";
+  --text-primary: "#000";
+  --button-bg: "#000000";
+  --button-text: "#ffffff";
+}
+[data-theme="dark"] {
+  --background: #000;
+  --text-theme: #fff;
+  --text-primary: #fff;
+  --button-bg: #fff;
+  --button-text: #000;
+}
+[data-theme="light"] {
+  --background: #fff;
+  --text-theme: #000;
+  --text-primary: #000;
+  --button-bg: #000;
+  --button-text: #fff;
+}
+
+.light-dark-mode {
+  background-color: var(--background);
+  height: 100vh;
+  transition: all 0.5s;
+}
+.light-dark-mode p {
+  color: var(--text-primary);
+  font-size: 40px;
+}
+.light-dark-mode button {
+  background-color: var(--button-bg);
+  border: 1px solid var(--button-bg);
+  color: var(--button-text);
+  padding: 10px;
+  border-radius: 10px;
+}
