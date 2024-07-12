@@ -1,10 +1,10 @@
 import React from "react";
-import Tabs from "./components/Tabs";
+import Data from './components/Data'
 
 function App() {
   return (
     <div>
-      <Tabs />
+      <Data />
     </div>
   );
 }
