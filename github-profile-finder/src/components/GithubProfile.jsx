@@ -47,21 +47,25 @@ function GithubProfile() {
           <img
             src={profileData && profileData.avatar_url}
             alt={profileData.login}
-            className="rounded-full w-3/6 h-32 flex self-center"
+            className="rounded-full w-1/12  flex self-center hover:drop-shadow-sm"
           />
-          <div className="flex justify-around items-center">
+          <div className="flex justify-center items-center space-x-3">
+            <h2>Id:</h2>
             <h2>{profileData.id && profileData.id}</h2>
-            <h2>{profileData.login && profileData.login}</h2>
           </div>
-          <div className="flex justify-around items-center">
+          <div className="flex justify-center items-center space-x-3">
+            <h2>Name:</h2>
+            <h2>{profileData.name ? profileData.name : "Not Specified"}</h2>
+          </div>
+          <div className="flex justify-center items-center space-x-3">
             <h2 className="text-xs">Followers:</h2>
             <h2>{profileData.followers && profileData.followers}</h2>
           </div>
-          <div className="flex justify-around items-center">
+          <div className="flex justify-center items-center space-x-3">
             <h2>Public Repos:</h2>
             <h2>{profileData.public_repos && profileData.public_repos}</h2>
           </div>
-          <div className="flex justify-around items-center">
+          <div className="flex justify-center items-center space-x-3">
             <h2>Last Updated:</h2>
             <h2>
               {profileData.updated_at && profileData.updated_at.split("T")[0]}
