@@ -1,9 +1,10 @@
 import React from "react";
-import SearchhAutoComplete from "./components/SearchAutoComplete";
+import TicTacToe from "./components/TicTacToe";
+
 function App() {
   return (
     <div>
-      <SearchhAutoComplete />
+      <TicTacToe />
     </div>
   );
 }
