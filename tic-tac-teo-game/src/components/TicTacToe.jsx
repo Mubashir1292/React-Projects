@@ -5,7 +5,6 @@ function TicTacToe() {
   const [isXTurn, setIsXTurn] = useState(true);
   const [status, setStatus] = useState("");
   const [restartGame, setRestartGame] = useState(false);
-  const [count, setCount] = useState(0);
   const handleClick = (squarNumber) => {
     const copySquars = [...squares];
     if (getWinner(copySquars) || copySquars[squarNumber] !== "") return;
@@ -45,7 +44,7 @@ function TicTacToe() {
     setRestartGame(false);
   };
   useEffect(() => {
-    if (!getWinner(squares) && squares.every((s) => s !== "")) {
+    if (getWinner(squares) || squares.every((s) => s !== "")) {
       setStatus("This is a Draw! Please Restart The Game");
       setRestartGame(true);
     } else if (getWinner(squares)) {
@@ -58,7 +57,7 @@ function TicTacToe() {
   return (
     <>
       <div className="flex flex-col justify-center items-center ">
-        <div className="flex flex-col justify-center items-center  bg-gray-200 p-4 space-y-1 w-full ">
+        <div className="flex flex-col justify-center items-center   p-4 space-y-1 w-full ">
           <div className="flex space-x-1">
             <Squar
               value={squares[0]}

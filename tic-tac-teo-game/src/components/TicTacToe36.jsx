@@ -1,11 +1,115 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Squar from "./Squar";
 
 function TicTacToe36() {
   const [squares, setSquares] = useState(Array(36).fill(""));
   const [isFirstPlayer, setIsFirstPlayer] = useState(true);
   const [message, setMessage] = useState("");
-  const handleClick = (boxNumber) => {};
+  const [resetButton, setResetButton] = useState(false);
+  const handleClick = (boxNumber) => {
+    const copySquares = squares;
+    if (checkWinner(squares) || copySquares[boxNumber] !== "") return;
+    copySquares[boxNumber] = isFirstPlayer ? "X" : "O";
+    setSquares(copySquares);
+    setIsFirstPlayer((curr) => !curr);
+  };
+  const checkWinner = (checkedSquares) => {
+    const winningPatterns = [
+      //rows
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [9, 10, 11],
+      [12, 13, 14],
+      [15, 16, 17],
+      [18, 19, 20],
+      [21, 22, 23],
+      [24, 25, 26],
+      [27, 28, 29],
+      [30, 31, 32],
+      [33, 34, 35],
+      // cols
+      [0, 6, 12],
+      [18, 24, 30],
+      [1, 7, 13],
+      [19, 25, 31],
+      [2, 8, 14],
+      [20, 26, 32],
+      [3, 9, 15],
+      [21, 27, 33],
+      [4, 10, 16],
+      [22, 28, 34],
+      [5, 11, 17],
+      [23, 29, 35],
+      //intersections
+      // left to right
+      [0, 7, 14],
+      [1, 8, 15],
+      [2, 9, 16],
+      [3, 10, 17],
+      [6, 13, 20],
+      [7, 14, 21],
+      [9, 15, 22],
+      [10, 16, 23],
+      [12, 19, 26],
+      [13, 20, 27],
+      [14, 21, 28],
+      [15, 22, 29],
+      [18, 25, 32],
+      [19, 26, 33],
+      [20, 27, 34],
+      [21, 28, 35],
+      // right to left
+      [5, 10, 15],
+      [4, 9, 14],
+      [3, 8, 13],
+      [2, 7, 12],
+      [11, 16, 21],
+      [10, 15, 20],
+      [9, 14, 19],
+      [8, 13, 18],
+      [17, 22, 27],
+      [16, 21, 27],
+      [15, 20, 25],
+      [14, 19, 24],
+      [23, 28, 33],
+      [22, 27, 32],
+      [21, 26, 31],
+      [20, 25, 30],
+    ];
+    // 0,1,2,3,4,5
+    // 6,7,8,9,10,11
+    // 12,13,14,15,16,17,
+    // 18,19,20,21,22,23
+    // 24,25,26,27,28,29,
+    // 30,31,32,33,34,35
+    for (let i = 0; i < winningPatterns.length; i++) {
+      const [x, y, z] = winningPatterns[i];
+      if (
+        checkedSquares[x] &&
+        checkedSquares[x] === checkedSquares[y] &&
+        checkedSquares[x] === checkedSquares[z]
+      ) {
+        setResetButton(true);
+        return checkedSquares[x];
+      }
+    }
+    return null;
+  };
+  useEffect(() => {
+    if (checkWinner(squares) || squares.every((item) => item !== "")) {
+      setMessage("This Game is Draw ! Please Restart the Game ");
+    } else if (checkWinner(squares)) {
+      setMessage(`Winner of This Game is ${checkWinner(squares)}`);
+    } else {
+      setMessage(`Next Player is ${isFirstPlayer ? "X" : "O"}`);
+    }
+  }, [squares, isFirstPlayer]);
+  const handleReset = () => {
+    setResetButton(false);
+    setIsFirstPlayer(false);
+    setSquares(Array(36).fill(""));
+  };
   return (
     <React.Fragment>
       <div className="flex flex-col">
@@ -108,6 +212,11 @@ function TicTacToe36() {
           </div>
           <div className="flex justify-center items-center space-x-1">
             <Squar
+              value={squares[18]}
+              onClick={() => handleClick(18)}
+              size={"sm"}
+            />
+            <Squar
               value={squares[19]}
               onClick={() => handleClick(19)}
               size={"sm"}
@@ -132,13 +241,13 @@ function TicTacToe36() {
               onClick={() => handleClick(23)}
               size={"sm"}
             />
+          </div>
+          <div className="flex justify-center items-center space-x-1">
             <Squar
               value={squares[24]}
               onClick={() => handleClick(24)}
               size={"sm"}
             />
-          </div>
-          <div className="flex justify-center items-center space-x-1">
             <Squar
               value={squares[25]}
               onClick={() => handleClick(25)}
@@ -164,13 +273,13 @@ function TicTacToe36() {
               onClick={() => handleClick(29)}
               size={"sm"}
             />
+          </div>
+          <div className="flex justify-center items-center space-x-1">
             <Squar
               value={squares[30]}
               onClick={() => handleClick(30)}
               size={"sm"}
             />
-          </div>
-          <div className="flex justify-center items-center space-x-1">
             <Squar
               value={squares[31]}
               onClick={() => handleClick(31)}
@@ -196,14 +305,19 @@ function TicTacToe36() {
               onClick={() => handleClick(35)}
               size={"sm"}
             />
-            <Squar
-              value={squares[36]}
-              onClick={() => handleClick(36)}
-              size={"sm"}
-            />
           </div>
         </div>
-        <h3 className="text-xl text-green-500 font-bold ">{message}</h3>
+        <h3 className="text-xl text-green-500 font-bold text-center">
+          {message}
+        </h3>
+        {resetButton ? (
+          <button
+            className="bg-gray-500 text-white p-4 rounded-md text-center"
+            onClick={handleReset}
+          >
+            Restart Game
+          </button>
+        ) : null}
       </div>
     </React.Fragment>
   );
