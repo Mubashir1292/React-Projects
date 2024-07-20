@@ -203,6 +203,7 @@ function TicTacToe36() {
             />
           </div>
         </div>
+        <h3 className="text-xl text-green-500 font-bold ">{message}</h3>
       </div>
     </React.Fragment>
   );
