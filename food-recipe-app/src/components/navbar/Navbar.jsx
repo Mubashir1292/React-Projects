@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { GlobalContext } from "../context/Context";
 
 function Navbar() {
-  const [search, setSearch] = useState("");
+  const { searchParam, setSearchParam, handleSubmit } =
+    useContext(GlobalContext);
   return (
     <div className="flex justify-between items-center py-8 container mx-auto flex-col lg:flex-row">
       <h2 className="text-2xl font-semibold">
@@ -15,12 +17,7 @@ function Navbar() {
           </NavLink>
         </li>
       </h2>
-      <form
-        action=""
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <form action="" onSubmit={handleSubmit}>
         <input
           type="text"
           name="search"
@@ -35,8 +32,8 @@ function Navbar() {
           shadow-lg
           shadow-red-100
           border"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={searchParam}
+          onChange={(e) => setSearchParam(e.target.value)}
         />
       </form>
       <ul className="flex gap-5 list-none">
